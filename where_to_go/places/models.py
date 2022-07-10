@@ -14,6 +14,12 @@ class Location(models.Model):
         max_length=200,
         blank=True,
         )
+    images = models.ManyToManyField(
+        'Image',
+        verbose_name='Картинки',
+        related_name='images',
+        blank=True,
+        )
 
     def __str__(self):
         return self.title
@@ -25,14 +31,6 @@ class Image(models.Model):
         upload_to='places_images',
         blank=True,
         verbose_name='Путь к картинке'
-        )
-    location = models.ForeignKey(
-        'Location',
-        verbose_name='Место',
-        null=True,
-        blank=True,
-        related_name='images',
-        on_delete=models.SET_NULL,
         )
 
     def __str__(self):
