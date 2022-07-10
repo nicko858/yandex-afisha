@@ -4,21 +4,20 @@ from django.db import models
 
 
 class Location(models.Model):
-    title = models.CharField(max_length=200)
-    title_short = models.CharField(max_length=100, blank=True)
-    description_short = models.TextField()
-    description_long = models.TextField()
-    lng = models.FloatField()
-    lat = models.FloatField()
+    title = models.CharField(max_length=200, verbose_name='Название')
+    title_short = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name='Сокращенное название',
+        )
+    description_short = models.TextField(verbose_name='Сокращенное описание')
+    description_long = models.TextField(verbose_name='Описание')
+    lng = models.FloatField(verbose_name='Широта')
+    lat = models.FloatField(verbose_name='Долгота')
     placeid = models.CharField(
         max_length=200,
         blank=True,
-        )
-    images = models.ManyToManyField(
-        'Image',
-        verbose_name='Картинки',
-        related_name='images',
-        blank=True,
+        verbose_name='Идентификатор места',
         )
 
     def __str__(self):
@@ -26,12 +25,19 @@ class Location(models.Model):
 
 
 class Image(models.Model):
-    title = models.CharField(max_length=200)
     img_url = models.ImageField(
         upload_to='places_images',
         blank=True,
-        verbose_name='Путь к картинке'
+        verbose_name='Картинка'
         )
+    location = models.ForeignKey(
+        Location,
+        null=True,
+        verbose_name='Место',
+        on_delete=models.SET_NULL,
+        )
+    position = models.IntegerField(verbose_name='Позиция', null=True)
 
     def __str__(self):
-        return self.title
+        return '{} {}'.format(self.position, self.location)
+

@@ -2,16 +2,18 @@ from django.contrib import admin
 from .models import Location, Image
 
 
-class PlaceImagesInline(admin.TabularInline):
-    model = Location.images.through
-    raw_id_fields = ('image', 'location',)
+class ImageAdminInline(admin.TabularInline):
+    model = Image
+    verbose_name = 'Фотография'
+    verbose_name_plural = 'Фотографии'
+    fields = ['img_url', 'position']
+    extra = 0
 
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
-    exclude = ('images',)
     inlines = [
-        PlaceImagesInline,
+        ImageAdminInline,
     ]
 
 

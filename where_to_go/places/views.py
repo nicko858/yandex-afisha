@@ -26,7 +26,7 @@ def index(request):
                         'title': location.title,
                         'imgs': [
                             img.img_url.url for img in
-                            location.images.order_by('title')
+                            location.image_set.all()
                             ],
                         'description_short': location.description_short,
                         'description_long': location.description_long,
