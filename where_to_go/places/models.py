@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce import models as tinymce_models
 
 # Create your models here.
 
@@ -11,7 +12,8 @@ class Location(models.Model):
         verbose_name='Сокращенное название',
         )
     description_short = models.TextField(verbose_name='Сокращенное описание')
-    description_long = models.TextField(verbose_name='Описание')
+    description_long = tinymce_models.HTMLField(verbose_name='Описание')
+    # description_long = models.TextField(verbose_name='Описание')
     lng = models.FloatField(verbose_name='Широта')
     lat = models.FloatField(verbose_name='Долгота')
     placeid = models.CharField(
@@ -36,8 +38,11 @@ class Image(models.Model):
         verbose_name='Место',
         on_delete=models.SET_NULL,
         )
-    position = models.IntegerField(verbose_name='Позиция', null=True)
+    position = models.PositiveIntegerField(
+        verbose_name='Позиция',
+        default=0,
+        db_index=True,
+        )
 
     def __str__(self):
-        return '{} {}'.format(self.position, self.location)
-
+        return '{} {}'.format(self.id, self.location)

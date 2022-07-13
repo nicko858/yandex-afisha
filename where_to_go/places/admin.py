@@ -1,15 +1,17 @@
 from django.contrib import admin
 from .models import Location, Image
 from django.utils.html import format_html
+from adminsortable2.admin import SortableAdminBase, SortableTabularInline
 
 
-class ImageAdminInline(admin.TabularInline):
+class ImageAdminInline(SortableTabularInline, admin.TabularInline):
     model = Image
     verbose_name = 'Фотография'
     verbose_name_plural = 'Фотографии'
     readonly_fields = ['get_preview', ]
-    fields = ['img_url', 'get_preview', 'position']
+    list_display = ['position', 'img_url', 'get_preview', ]
     extra = 0
+    ordering = ['position', ]
 
     def get_preview(self, obj):
         return format_html(
@@ -20,7 +22,7 @@ class ImageAdminInline(admin.TabularInline):
 
 
 @admin.register(Location)
-class LocationAdmin(admin.ModelAdmin):
+class LocationAdmin(SortableAdminBase, admin.ModelAdmin):
     inlines = [
         ImageAdminInline,
     ]

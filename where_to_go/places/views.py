@@ -46,7 +46,7 @@ def index(request):
 
 def location_detail(request, place_id):
     location_obj = get_object_or_404(Location, pk=place_id)
-    images_urls = [image.img_url.url for image in location_obj.images.all()]
+    images_urls = [image.img_url.url for image in location_obj.image_set.all()]
     location = model_to_dict(location_obj)
     location['images'] = images_urls
     serialized_location = JsonResponse(
