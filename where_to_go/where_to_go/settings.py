@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bd009sg=u@sq1@wyzqqbsp81x8$rktq6+l9_eh+_)kt=y$!4+!'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG', 'False') == 'True')
 
 ALLOWED_HOSTS = ['127.0.0.1', ]
 
@@ -136,3 +139,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+SECURE_HSTS_SECONDS = os.environ.get('SECURE_HSTS_SECONDS')
+SECURE_HSTS_INCLUDE_SUBDOMAINS = (
+    os.environ.get('SECURE_HSTS_INCLUDE_SUBDOMAINS', 'False') == 'True'
+    )
+SECURE_SSL_REDIRECT = (
+    os.environ.get('SECURE_SSL_REDIRECT', 'False') == 'True'
+    )
+SESSION_COOKIE_SECURE = (
+    os.environ.get('SESSION_COOKIE_SECURE', 'False') == 'True'
+    )
+CSRF_COOKIE_SECURE = (os.environ.get('CSRF_COOKIE_SECURE', 'False') == 'True')
+SECURE_HSTS_PRELOAD = (
+    os.environ.get('SECURE_HSTS_PRELOAD', 'False') == 'True'
+    )
