@@ -5,7 +5,11 @@ from tinymce import models as tinymce_models
 
 
 class Location(models.Model):
-    title = models.CharField(max_length=200, verbose_name='Название')
+    title = models.CharField(
+        max_length=200,
+        verbose_name='Название',
+        unique=True,
+        )
     title_short = models.CharField(
         max_length=100,
         blank=True,
@@ -13,7 +17,6 @@ class Location(models.Model):
         )
     description_short = models.TextField(verbose_name='Сокращенное описание')
     description_long = tinymce_models.HTMLField(verbose_name='Описание')
-    # description_long = models.TextField(verbose_name='Описание')
     lng = models.FloatField(verbose_name='Широта')
     lat = models.FloatField(verbose_name='Долгота')
     placeid = models.CharField(
@@ -30,10 +33,12 @@ class Image(models.Model):
     img_url = models.ImageField(
         upload_to='places_images',
         blank=True,
-        verbose_name='Картинка'
+        verbose_name='Картинка',
+        unique=True,
         )
     location = models.ForeignKey(
         Location,
+        related_name='images',
         null=True,
         verbose_name='Место',
         on_delete=models.SET_NULL,

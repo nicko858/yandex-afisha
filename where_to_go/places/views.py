@@ -26,7 +26,7 @@ def index(request):
                         'title': location.title,
                         'imgs': [
                             img.img_url.url for img in
-                            location.image_set.all()
+                            location.images.all()
                             ],
                         'description_short': location.description_short,
                         'description_long': location.description_long,
@@ -46,7 +46,7 @@ def index(request):
 
 def location_detail(request, place_id):
     location_obj = get_object_or_404(Location, pk=place_id)
-    images_urls = [image.img_url.url for image in location_obj.image_set.all()]
+    images_urls = [image.img_url.url for image in location_obj.images.all()]
     location = model_to_dict(location_obj)
     location['images'] = images_urls
     serialized_location = JsonResponse(
