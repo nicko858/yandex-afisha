@@ -40,8 +40,3 @@ python3 manage.py runserver
 ## Цели проекта
 
 Код написан в учебных целях — для курса по Python и веб-разработке на сайте [Devman](https://dvmn.org).
-
-В частности, репозиторий используется:
-
-- В задаче "Оптимизируем сайт" модуля [Знакомство с Django: ORM](https://dvmn.org/modules/django-orm/).
-- В туториале [Превью для ImageField в админке](https://devman.org/encyclopedia/django/how-to-setup-image-preview/)
