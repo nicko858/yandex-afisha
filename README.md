@@ -5,6 +5,11 @@
 ![image](https://user-images.githubusercontent.com/35272808/200195508-a09b4822-4f5d-4f6f-bd26-5922d23b26de.png)
 
 
+# Демо сайта
+
+Посмотреть как выглядит сайт можно по следующей [ссылке](https://nicko858.pythonanywhere.com/).  
+Админка сайта доступна по [ссылке](https://nicko858.pythonanywhere.com/admin). 
+
 ## Запуск
 
 Для запуска сайта вам понадобится Python третьей версии.
